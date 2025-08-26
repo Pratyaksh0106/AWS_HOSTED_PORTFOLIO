@@ -1,25 +1,19 @@
+// GET API REQUEST
 async function get_visitors() {
-  const visitorElement = document.getElementById("visitors");
-  try {
-    const response = await fetch("https://qfky693v2f.execute-api.eu-west-2.amazonaws.com/default/terraform_lambda_func", {
-      method: "GET",
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch visitor count");
-
-    const data = await response.json();
-
-    // Update visitor count and add animation class
-    visitorElement.textContent = data["count"];
-    visitorElement.classList.add("loaded");
-
-    console.log("Visitor count:", data);
-    return data;
-  } catch (err) {
-    console.error("Visitor count fetch failed:", err);
-    visitorElement.textContent = "N/A";
-    visitorElement.classList.add("loaded");
-  }
+    // call post api request function
+    //await post_visitor();
+    try {
+        let response = await fetch('https://mkf9ovcdih.execute-api.ap-south-1.amazonaws.com/default/VisitorCounter', {
+            method: 'GET',
+        });
+        let data = await response.json()
+        document.getElementById("visitors").innerHTML = data['count'];
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error(err);
+    }
 }
+
 
 get_visitors();
